@@ -34,7 +34,7 @@ pipeline {
             steps {
             sshagent(['host_key']) {
                sh """
-                ssh -o StrictHostKeyChecking=no ec2-user@${EC2_INSTANCE_IP} '
+                ssh -o StrictHostKeyChecking=no ec2-user@${DOCKER_HOST_INSTANCE_IP} '
                 docker run -d --name myapp -p 80:80 hello-world-mvn
                 '
             """
