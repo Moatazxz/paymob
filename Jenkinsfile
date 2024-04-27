@@ -49,7 +49,7 @@ pipeline {
                 '
                 
                 ssh -o StrictHostKeyChecking=no ${DOCKER_HOST_SERVER} '
-                docker run -d --name myapp -p 80:80 ${DOCKER_UER}/hello-world-mvn:lts
+                docker run -d  -p 80:80 ${DOCKER_UER}/hello-world-mvn:lts
                 '
 
             """
