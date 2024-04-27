@@ -31,7 +31,7 @@ pipeline {
             steps {
                 // Run Push docker Image
                 sh """
-                 docker login -u ${DOCKER_UER} -p ${DOCKERHUB_CRED}
+                 echo ${DOCKERHUB_CRED} | docker login -u ${DOCKER_UER}  --password-stdin
                  docker push  ${DOCKER_UER}/hello-world-mvn:lts
                 """
             }
@@ -45,7 +45,7 @@ pipeline {
                sh """
                  
                 ssh -o StrictHostKeyChecking=no ${DOCKER_HOST_SERVER} '
-                 docker login -u ${DOCKER_UER} -p ${DOCKERHUB_CRED}
+                echo ${DOCKERHUB_CRED} | docker login -u ${DOCKER_UER}  --password-stdin
                 '
                 
                 ssh -o StrictHostKeyChecking=no ${DOCKER_HOST_SERVER} '
