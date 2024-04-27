@@ -19,6 +19,7 @@ pipeline {
                 sh """
                   cd ./app
                   ls 
+                  mvn clean install
                   docker build -t hello-world-mvn .
                 """
                 // sh 'cd ./app'
