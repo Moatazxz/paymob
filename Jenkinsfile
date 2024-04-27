@@ -3,7 +3,9 @@ pipeline {
     
     environment {
         PRIVATE_KEY = credentials('host_key')
-        DOCKER_HOST_INSTANCE_IP = '54.80.0.85'
+        DOCKERHUB_CRED = credentials('moatazxz_dockerhub')
+        DOCKER_HOST_SERVER = 'ec2-user@54.80.0.85'
+        DOCKER_UER='moatazxz'
     }
     
   tools {
@@ -16,9 +18,22 @@ pipeline {
         stage('Build') {
             steps {
                 // Run Maven build command
-                sh 'cd ./app'
-                sh 'mvn clean install'
-                sh 'docker build -t hello-world-mvn .'
+                sh """
+                  cd ./app
+                  ls 
+                  mvn clean install
+                  docker build -t ${DOCKER_UER}/hello-world-mvn:lts .
+                """
+            }
+        }
+        
+        stage('Push docker image to docker-hub') {
+            steps {
+                // Run Push docker Image
+                sh """
+                 echo ${DOCKERHUB_CRED_PSW} | docker login -u ${DOCKER_UER}  --password-stdin
+                 docker push  ${DOCKER_UER}/hello-world-mvn:lts
+                """
             }
         }
         
@@ -28,9 +43,15 @@ pipeline {
             steps {
             sshagent(['host_key']) {
                sh """
-                ssh -o StrictHostKeyChecking=no ec2-user@${EC2_INSTANCE_IP} '
-                docker run -d --name myapp -p 80:80 hello-world-mvn
+                 
+                ssh -o StrictHostKeyChecking=no ${DOCKER_HOST_SERVER} '
+                echo ${DOCKERHUB_CRED_PSW} | docker login -u ${DOCKER_UER}  --password-stdin
                 '
+                
+                ssh -o StrictHostKeyChecking=no ${DOCKER_HOST_SERVER} '
+                docker run -d  -p 8080:8080 ${DOCKER_UER}/hello-world-mvn:lts
+                '
+
             """
             }
         }
