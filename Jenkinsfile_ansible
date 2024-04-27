@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        ANSIBLE_HOST_SERVER = 'ec2-user@54.80.0.85'
+        DOCKER_HOST_SERVER = 'ec2-user@54.80.0.85'
     }
     
   tools {
