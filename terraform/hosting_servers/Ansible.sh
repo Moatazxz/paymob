@@ -1,4 +1,4 @@
 #! /bin/bash
 yum update -y
-hostnamectl set-hostname ansible-server
-amazon-linux-extras install ansible2 -y
+yum install python3-pip -y 
+yum install ansible2 -y

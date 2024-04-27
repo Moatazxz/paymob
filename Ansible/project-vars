@@ -1,0 +1,3 @@
+dockerfile_directory : /home/ec2-user/app/
+
+image_name: hello-world:lts
