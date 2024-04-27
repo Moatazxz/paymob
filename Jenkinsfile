@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        PRIVATE_KEY = credentials('docker-ssh')
-        DOCKER_HOST_INSTANCE_IP = '54.172.211.134'
+        PRIVATE_KEY = credentials('host_key')
+        DOCKER_HOST_INSTANCE_IP = '54.80.0.85'
     }
     
   tools {
