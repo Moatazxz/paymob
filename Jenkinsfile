@@ -22,7 +22,7 @@ pipeline {
                   cd ./app
                   ls 
                   mvn clean install
-                  docker build -t hello-world-mvn .
+                  docker build -t ${DOCKER_UER}/hello-world-mvn:lts .
                 """
             }
         }
