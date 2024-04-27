@@ -16,7 +16,9 @@ pipeline {
         stage('Build') {
             steps {
                 // Run Maven build command
-                sh 'mvn -v'
+                sh 'cd ./app'
+                sh 'mvn clean install'
+                sh 'docker build -t hello-world-mvn .'
             }
         }
         
@@ -27,7 +29,7 @@ pipeline {
             sshagent(['docker-ssh']) {
                sh """
                 ssh -o StrictHostKeyChecking=no ec2-user@${EC2_INSTANCE_IP} '
-                docker run -d --name myapp -p 80:80 nginx
+                docker run -d --name myapp -p 80:80 hello-world-mvn
                 '
             """
             }
