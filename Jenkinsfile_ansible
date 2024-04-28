@@ -31,9 +31,7 @@ pipeline {
                 sh "scp -o StrictHostKeyChecking=no Ansible/* ${DOCKER_HOST_SERVER}:~/Ansible"
                 sh "scp -r app/* ${DOCKER_HOST_SERVER}:~/app "
                 withCredentials([sshUserPrivateKey(credentialsId: 'host_key', keyFileVariable: 'keyfile')]) {
-                            echo "Keyfile: ${keyfile}"
-
-                            sh "scp ${keyfile} ${DOCKER_HOST_SERVER}:~/ssh-key.pem"
+                        sh "scp ${keyfile} ${DOCKER_HOST_SERVER}:~/ssh-key.pem"
                         }
 
             }
