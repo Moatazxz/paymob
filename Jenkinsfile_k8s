@@ -47,7 +47,7 @@ pipeline {
                 sh """
                   ssh  ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' kubectl --kubeconfig ~/kube_config  get pods '
 
-                  ssh  ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' ansible-playbook   k8-playbook.yaml'
+                  ssh  ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' ansible-playbook   k8_playbook.yaml'
                   
                  """
         }
