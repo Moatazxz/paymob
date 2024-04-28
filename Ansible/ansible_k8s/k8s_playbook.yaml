@@ -1,5 +1,6 @@
 ---
 - name: Deploy application to Kubernetes
+  hosts: localhost
   gather_facts: no
   
   vars:
