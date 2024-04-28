@@ -1,0 +1,22 @@
+---
+- name: Deploy application to Kubernetes
+  gather_facts: no
+  
+  vars:
+    kubeconfig_path: ~/.kube/config
+
+  tasks:
+    - name: Apply Deployment YAML
+      k8s:
+        state: present
+        src: deployment.yaml
+
+    - name: Apply NodePort Service YAML
+      k8s:
+        state: present
+        src: service-nodeport.yaml
+
+    - name: Apply LoadBalancer Service YAML
+      k8s:
+        state: present
+        src: service-loadbalancer.yaml

@@ -52,6 +52,18 @@
     - name: deploy docker image
       command: docker run -d -p 80:8080 mvnapp:latest
 
+
+
+    # - name: Build Docker image
+    #   vars:
+    #     ansible_python_interpreter: /usr/bin/python2.7
+    #   docker_image:
+    #     source: build
+    #     build:
+    #       path: "{{ dockerfile_directory }}"
+    #     name: "{{ image_name }}"
+    #     source: build
+
     # - name: Run Docker container
     #   docker_container:
     #     name: "{{ container_name }}"
