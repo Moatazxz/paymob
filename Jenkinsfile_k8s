@@ -32,7 +32,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'moatazxz_dockerhub', usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PASS')]) {
                     // Login to Docker registry
                     echo "Attempting to log in as ${REGISTRY_USER}"
-                    sh "echo $REGISTRY_PASS | docker login --username $REGISTRY_USER --password-stdin"
+                    sh "echo $REGISTRY_PASS | sudo docker login --username $REGISTRY_USER --password-stdin"
                 }
         }
     }
