@@ -44,9 +44,11 @@ pipeline {
             steps {
             sshagent(['host_key']) {
                 sh """
-                  ssh -o StrictHostKeyChecking=no ${DOCKER_HOST_SERVER} ' ls -la '
+                  ssh -o StrictHostKeyChecking=no ${DOCKER_HOST_SERVER} ' cd ~/Ansible & ls -al  '
+                  
                  """
         }
+       }
        }
 
     //     stage('deploy ansible playbok to docker host') {
