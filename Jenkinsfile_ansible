@@ -30,7 +30,7 @@ pipeline {
         stage('copy require files to ansible server') {
             steps {
             sshagent(['host_key']) {
-                sh "scp -o StrictHostKeyChecking=no Ansible/* ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER}:~/Ansible"
+                sh "scp -o StrictHostKeyChecking=no Ansible/* ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER}:~/"
                 sh "scp -r app/* ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER}:~/app "
                 withCredentials([sshUserPrivateKey(credentialsId: 'host_key', keyFileVariable: 'keyfile')]) {
                         sh "scp ${keyfile} ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER}:~/ssh-key.pem"
@@ -44,7 +44,7 @@ pipeline {
             steps {
             sshagent(['host_key']) {
                 sh """
-                  ssh -o StrictHostKeyChecking=no ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' cd ~/Ansible & ls -al  '
+                  ssh -o StrictHostKeyChecking=no ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' ansible-playbook   my-playbook.yaml   '
                   
                  """
         }
