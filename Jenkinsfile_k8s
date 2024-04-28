@@ -29,15 +29,10 @@ pipeline {
 
     stage('Login to docker hub') {
             steps {
-            sshagent(['host_key']) {
-               sh """
-                 
-                ssh -o StrictHostKeyChecking=no ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} '
-                echo ${DOCKERHUB_CRED} | docker login -u ${DOCKER_UER}  --password-stdin
-                '
-
-            """
-            }
+                withCredentials([usernamePassword(credentialsId: 'moatazxz_dockerhub', usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PASS')]) {
+                    // Login to Docker registry
+                    sh 'echo $REGISTRY_PASS | docker login --username $REGISTRY_USER --password-stdin'
+                }
         }
     }
 
