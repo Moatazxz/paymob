@@ -1,0 +1,75 @@
+---
+- name: Install python3, docker
+  hosts: docker_host
+  become: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  vars_files:
+    - project-vars
+  tasks:
+    - name: Install python3 and docker
+      vars:
+        ansible_python_interpreter: /usr/bin/python
+      yum:
+        name:
+          - python3
+          - docker
+        update_cache: yes
+        state: present
+    - name: Start docker daemon
+      systemd:
+        name: docker
+        state: started
+    - name: Install docker python module
+      pip:
+       name: docker
+       executable: /usr/bin/pip3 
+ 
+    - name: Add ec2-user to docker group
+      user: 
+        name: ec2-user
+        groups: docker
+        append: yes
+    - name: Reconnect to server session
+      meta: reset_connection
+    
+    # - name: Build Docker image
+    #   vars:
+    #     ansible_python_interpreter: /usr/bin/python2.7
+    #   docker_image:
+    #     source: build
+    #     build:
+    #       path: "{{ dockerfile_directory }}"
+    #     name: "{{ image_name }}"
+    #     source: build
+    
+    - name: Copy Dockerfile
+      copy: src=~/app/ dest=/tmp/path/
+
+    - name: create docker image
+      command: docker build -t mvnapp:latest /tmp/path/
+
+    - name: deploy docker image
+      command: docker run -d -p 80:8080 mvnapp:latest
+
+
+
+    # - name: Build Docker image
+    #   vars:
+    #     ansible_python_interpreter: /usr/bin/python2.7
+    #   docker_image:
+    #     source: build
+    #     build:
+    #       path: "{{ dockerfile_directory }}"
+    #     name: "{{ image_name }}"
+    #     source: build
+
+    # - name: Run Docker container
+    #   docker_container:
+    #     name: "{{ container_name }}"
+    #     image: "{{ image_name }}"
+    #     state: started
+    #     restart_policy: always
+    #     published_ports:
+    #       - 80:8080
+      
