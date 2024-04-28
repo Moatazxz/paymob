@@ -1,6 +1,6 @@
 ---
 - name: Install python3, docker
-  hosts: docker_host
+  hosts: hosts
   become: yes
   vars_files:
     - project-vars
