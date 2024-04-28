@@ -39,7 +39,7 @@ pipeline {
         }
        }
 
-        stage('copy require files to ansible server') {
+        stage('deploy ansible playbok to docker host') {
             steps {
              script {
                     echo "calling ansible playbook to configure ec2 instances"
