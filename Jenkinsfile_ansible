@@ -43,7 +43,7 @@ pipeline {
             steps {
             sshagent(['host_key']) {
                 sh """  
-                ssh -o StrictHostKeyChecking=no ${Ansible_HOST_SERVER} 'ansible-playbook  ~/Ansible/my-playbook.yaml'
+                ssh -o StrictHostKeyChecking=no ${Ansible_HOST_SERVER} 'ansible-playbook -i ~/Ansible/hosts ~/Ansible/my-playbook.yaml'
                  """
 
             }
