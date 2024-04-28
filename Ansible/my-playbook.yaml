@@ -42,9 +42,13 @@
     #       path: "{{ dockerfile_directory }}"
     #     name: "{{ image_name }}"
     #     source: build
+    
+    - name: List current working directory
+         command: pwd
+         register: pwd_output
 
     - name: create docker image
-      command: docker build -t mvnapp:latest ./app
+      command: docker build -t mvnapp:latest ~/app
 
     # - name: Run Docker container
     #   docker_container:
