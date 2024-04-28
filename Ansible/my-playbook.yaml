@@ -44,9 +44,7 @@
     #     source: build
 
     - name: create docker image
-      command: docker build -t mvnapp:latest .
-      args:
-        chdir: /home/ec2-user/app/
+      command: docker build -t mvnapp:latest ./app
 
     # - name: Run Docker container
     #   docker_container:
