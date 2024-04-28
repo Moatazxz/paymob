@@ -49,7 +49,7 @@ pipeline {
                     remote.host = Ansible_HOST_SERVER
                     remote.allowAnyHosts = true
 
-                    withCredentials([sshUserPrivateKey(credentialsId: 'ssh_key', keyFileVariable: 'keyfile', usernameVariable: 'SSH_KEY')]){
+                    withCredentials([sshUserPrivateKey(credentialsId: 'host_key', keyFileVariable: 'keyfile', usernameVariable: 'HOST_KEY')]){
                         remote.user = SSH_KEY
                         remote.identityFile = keyfile
                         sshCommand remote: remote, command: "ansible-playbook ~/Ansible/my-playbook.yaml"
