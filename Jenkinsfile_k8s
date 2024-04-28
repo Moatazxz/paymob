@@ -26,18 +26,35 @@ pipeline {
         }
        }
 
-    //    stage('cdeploy to docker host') {
-    //         steps {
-    //         sshagent(['host_key']) {
-    //             sh """
-    //               ssh -o StrictHostKeyChecking=no ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' ansible-playbook   my-playbook.yaml   '
-                  
-    //              """
-    //     }
-    //    }
-    //    }
 
-    
+    stage('Login to docker hub') {
+            steps {
+            sshagent(['host_key']) {
+               sh """
+                 
+                ssh -o StrictHostKeyChecking=no ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} '
+                echo ${DOCKERHUB_CRED_PSW} | docker login -u ${DOCKER_UER}  --password-stdin
+                '
+
+            """
+            }
+        }
+    }
+
+       stage('deploy to k8s') {
+            steps {
+            sshagent(['host_key']) {
+                sh """
+                  ssh  ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' kubectl --kubeconfig /path/to/kubeconfig_file get pods '
+
+                  ssh  ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' ansible-playbook   k8-playbook.yaml'
+                  
+                 """
+        }
+       }
+       }
+
+
 
     //     stage('deploy ansible playbok to docker host') {
     //         steps {

@@ -3,7 +3,7 @@
   gather_facts: no
   
   vars:
-    kubeconfig_path: ~/.kube/config
+    kubeconfig_path: ~/kube_config
 
   tasks:
     - name: Apply Deployment YAML
