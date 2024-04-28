@@ -5,6 +5,8 @@ pipeline {
         DOCKER_HOST_SERVER = 'ec2-user@54.80.0.85'
         Ansible_HOST_SERVER = '100.27.175.95'
         ANSIBLE_HOST_NAME = 'ec2-user'
+        DOCKERHUB_CRED = credentials('moatazxz_dockerhub')
+        DOCKER_UER='moatazxz'
     }
 
     stages { 
@@ -27,13 +29,15 @@ pipeline {
        }
 
 
-    stage('Login to docker hub') {
+        stage('deploy') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'moatazxz_dockerhub', usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PASS')]) {
-                    // Login to Docker registry
-                    echo "Attempting to log in as ${REGISTRY_USER}"
-                    sh "echo $REGISTRY_PASS | sudo docker login --username $REGISTRY_USER --password-stdin"
-                }
+            sshagent(['host_key']) {
+               sh """
+                ssh -o StrictHostKeyChecking=no ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} '
+                echo ${DOCKERHUB_CRED_PSW} | docker login -u ${DOCKER_UER}  --password-stdin
+                '
+            """
+            }
         }
     }
 
