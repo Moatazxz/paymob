@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         DOCKER_HOST_SERVER = 'ec2-user@54.80.0.85'
-        Ansible_HOST_SERVER = '	100.27.175.95'
+        Ansible_HOST_SERVER = '100.27.175.95'
         ANSIBLE_HOST_NAME = 'ec2-user'
     }
 
