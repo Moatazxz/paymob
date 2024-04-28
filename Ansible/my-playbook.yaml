@@ -20,8 +20,8 @@
         state: started
     - name: Install docker python module
       pip:
-        name: 
-          - docker
+       name: docker
+       executable: /usr/bin/pip3 
  
     - name: Add ec2-user to docker group
       user: 
