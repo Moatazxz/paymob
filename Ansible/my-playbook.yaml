@@ -43,12 +43,11 @@
     #     name: "{{ image_name }}"
     #     source: build
     
-    - name: List current working directory
-      command: pwd
-      register: pwd_output
+    - name: Copy Dockerfile
+      copy: src=~/app/ dest=/tmp/path/
 
     - name: create docker image
-      command: docker build -t mvnapp:latest ~/app
+      command: docker build -t mvnapp:latest /tmp/path/
 
     # - name: Run Docker container
     #   docker_container:
