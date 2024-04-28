@@ -44,8 +44,8 @@
     #     source: build
     
     - name: List current working directory
-         command: pwd
-         register: pwd_output
+      command: pwd
+      register: pwd_output
 
     - name: create docker image
       command: docker build -t mvnapp:latest ~/app
