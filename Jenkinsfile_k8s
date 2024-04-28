@@ -33,7 +33,7 @@ pipeline {
                sh """
                  
                 ssh -o StrictHostKeyChecking=no ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} '
-                echo ${DOCKERHUB_CRED_PSW} | docker login -u ${DOCKER_UER}  --password-stdin
+                echo ${DOCKERHUB_CRED} | docker login -u ${DOCKER_UER}  --password-stdin
                 '
 
             """
