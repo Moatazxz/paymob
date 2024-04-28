@@ -37,6 +37,23 @@ pipeline {
             }
         }
     }
+
+        stage('copy require files to ansible server') {
+            steps {
+            sshagent(['host_key']) {
+                sh """
+                                 
+                ssh -o StrictHostKeyChecking=no ${DOCKER_HOST_SERVER} '
+                    ansible-playbook  ~/Ansible/my-playbook.yaml
+                '
+
+            """
+
+            }
+        }
+    }
+
+
 }
     
 }
