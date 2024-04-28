@@ -44,7 +44,7 @@ pipeline {
             steps {
             sshagent(['host_key']) {
                 sh """
-                  ssh -o StrictHostKeyChecking=no ${DOCKER_HOST_SERVER} ' cd ~/Ansible & ls -al  '
+                  ssh -o StrictHostKeyChecking=no ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' cd ~/Ansible & ls -al  '
                   
                  """
         }
