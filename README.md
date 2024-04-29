@@ -67,4 +67,22 @@ After applying the Terraform configurations, a secret SSH key named tfkey.pem is
    - Once Jenkins restarts, verify that the plugins have been installed successfully by navigating to **Manage Jenkins > Manage Plugins > Installed** tab.
    - Confirm that the SSH Agent Plugin and Docker Plugin are listed among the installed plugins.
 
+## Credential Configuration
 
+### GitHub and Docker Hub
+- **GitHub**: Add your GitHub credentials (username and password) to Jenkins for code checkout.
+  - Navigate to "Credentials" > "System" > "Global credentials" > "Add Credentials".
+  - Choose "Username with password" and enter your GitHub username and password.
+- **Docker Hub**: Similarly, add your Docker Hub credentials to Jenkins for pushing and pulling images.
+  - Follow the same steps as for GitHub, using your Docker Hub login details.
+
+### EKS Cluster
+- **Create a Kubernetes Secret File**:
+  - Store your `kubeconfig` file securely in Jenkins.
+  - Use a Jenkins secret file credential to store and reference your `kubeconfig` in your CI/CD jobs.
+
+### Jenkins with Ansible and Docker Host
+- **Add SSH Credentials to Jenkins**:
+  - In the Jenkins web interface, navigate to "Credentials" > "System" > "Global credentials" > "Add Credentials".
+  - Choose "SSH Username with private key".
+  - Provide the SSH key that Jenkins will use for accessing the Ansible server and Docker host.
