@@ -28,10 +28,11 @@ Navigate to the Terraform configuration directory for hosting servers and apply 
 cd terraform/hostingservers
 terraform init    # Initializes the Terraform configuration
 terraform apply   # Provisions the EC2 instances
-
+```
 **For EKS Instances:**
 Navigate to the Terraform configuration directory for hosting servers and apply the Terraform scripts to provision the infrastructure.
 ```bash
 cd terraform/k8s
 terraform init    # Initializes the Terraform configuration
 terraform apply   # Provisions the EC2 instances
+```
