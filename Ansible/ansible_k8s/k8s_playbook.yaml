@@ -5,6 +5,7 @@
   
   vars:
     kubeconfig_path: ~/kube_config
+    ansible_python_interpreter: /usr/bin/python2
 
   tasks:
     - name: Apply Deployment YAML
