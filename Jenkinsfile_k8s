@@ -3,8 +3,10 @@ pipeline {
     
     environment {
         DOCKER_HOST_SERVER = 'ec2-user@54.80.0.85'
-        Ansible_HOST_SERVER = '18.232.118.57'
+        Ansible_HOST_SERVER = '100.27.175.95'
         ANSIBLE_HOST_NAME = 'ec2-user'
+        DOCKERHUB_CRED = credentials('moatazxz_dockerhub')
+        DOCKER_UER='moatazxz'
     }
 
     stages { 
@@ -13,9 +15,7 @@ pipeline {
             steps {
             sshagent(['host_key']) {
                 sh "scp -o StrictHostKeyChecking=no Ansible/ansible_k8s/* ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER}:~/"
-                // withCredentials([sshUserPrivateKey(credentialsId: 'host_key', keyFileVariable: 'keyfile')]) {
-                //         sh "scp ${keyfile} ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER}:~/ssh-key.pem"
-                //         }
+
 
                 withCredentials([file(credentialsId: 'kube_config', variable: 'SECRET_FILE')]) {
                     // Use scp to copy the secret file to the remote server
@@ -26,35 +26,34 @@ pipeline {
         }
        }
 
-    //    stage('cdeploy to docker host') {
-    //         steps {
-    //         sshagent(['host_key']) {
-    //             sh """
-    //               ssh -o StrictHostKeyChecking=no ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' ansible-playbook   my-playbook.yaml   '
+
+        stage('deploy') {
+            steps {
+            sshagent(['host_key']) {
+               sh """
+                ssh -o StrictHostKeyChecking=no ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} '
+                echo ${DOCKERHUB_CRED_PSW} | docker login -u ${DOCKER_UER}  --password-stdin
+                '
+            """
+            }
+        }
+    }
+
+       stage('deploy to k8s') {
+            steps {
+            sshagent(['host_key']) {
+                sh """
+                  ssh  ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' kubectl --kubeconfig ~/kube_config  get pods '
+
+                  ssh  ${ANSIBLE_HOST_NAME}@${Ansible_HOST_SERVER} ' ansible-playbook  k8s_playbook.yaml'
                   
-    //              """
-    //     }
-    //    }
-    //    }
+                 """
+        }
+       }
+       }
 
-    //     stage('deploy ansible playbok to docker host') {
-    //         steps {
-    //          script {
-    //                 echo "calling ansible playbook to configure ec2 instances"
-    //                 def remote = [:]
-    //                 remote.name = ANSIBLE_HOST_NAME
-    //                 remote.host = Ansible_HOST_SERVER
-    //                 remote.allowAnyHosts = true
 
-    //                 withCredentials([sshUserPrivateKey(credentialsId: 'host_key', keyFileVariable: 'keyfile')]){
-    //                     remote.identityFile = keyfile
-    //                     sshCommand remote: remote, command: "ansible-playbook  ~/Ansible/my-playbook.yaml"
-    //                 }
-    //             }
-
-    //     }
-    // }
-
+ 
 
 
     

@@ -2,23 +2,15 @@
 # Update all packages
 sudo yum update -y
 
-# Install Java (OpenJDK 11)
-sudo wget -O /etc/yum.repos.d/jenkins.repo \
+wget -O /etc/yum.repos.d/jenkins.repo \
     https://pkg.jenkins.io/redhat-stable/jenkins.repo
 
-# Add the Jenkins repository
-sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-
-
-# Import the Jenkins repository GPG key
-sudo yum upgrade
-# Install Jenkins
-sudo yum install java-17-amazon-corretto -y
-sudo yum install jenkins -y
-
-# Enable and start the Jenkins service
-sudo systemctl enable jenkins
-sudo systemctl start jenkins
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+yum upgrade
+yum install java-17-amazon-corretto -y
+install jenkins -y
+systemctl enable jenkins
+systemctl start jenkins
 
 amazon-linux-extras install docker -y
 systemctl start docker
