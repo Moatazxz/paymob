@@ -11,3 +11,7 @@ spec:
     - port: 8080
       targetPort: 8080
       nodePort: 30080
+<<<<<<< HEAD
+=======
+
+>>>>>>> 70457715e6ab72dde3af9fdf525b0039137bf332
