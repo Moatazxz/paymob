@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: mavn
-        image: moatazxz/maven-app:latest
+        image: moatazxz/hello-world-mvn:lts
         ports:
         - containerPort: 8080
