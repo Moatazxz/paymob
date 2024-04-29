@@ -85,4 +85,4 @@ After applying the Terraform configurations, a secret SSH key named tfkey.pem is
 - **Add SSH Credentials to Jenkins**:
   - In the Jenkins web interface, navigate to "Credentials" > "System" > "Global credentials" > "Add Credentials".
   - Choose "SSH Username with private key".
-  - Provide the SSH key that Jenkins will use for accessing the Ansible server and Docker host.
+  - Provide the SSH key that mentioned that Jenkins will use for accessing the Ansible server and Docker host.
