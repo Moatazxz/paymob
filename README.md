@@ -36,3 +36,4 @@ cd terraform/k8s
 terraform init    # Initializes the Terraform configuration
 terraform apply   # Provisions the EC2 instances
 ```
+After applying the Terraform configurations, a secret SSH key named tfkey.pem is generated. This key is essential for establishing SSH communications with the provisioned servers, enabling secure management and operational tasks.
