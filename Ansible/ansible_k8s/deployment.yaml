@@ -29,5 +29,5 @@ spec:
   selector:
     app: mavn
   ports:
-    - port: 8080
+    - port: 80
       targetPort: 8080
