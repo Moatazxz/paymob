@@ -1,10 +1,5 @@
 # paymob
 
-# Infrastructure Setup with Terraform
-
-## Overview
-The infrastructure supports the CI/CD pipelines and includes several critical components such as a VPC, subnets, route tables, security groups, EC2 instances, and an EKS cluster.
-
 ## Terraform Configuration Steps
 
 ### 1. VPC, Subnets, Route Table, and Security Groups
