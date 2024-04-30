@@ -12,5 +12,6 @@
       k8s:
         state: present
         src: deployment.yaml
+        namespace: default
 
  
