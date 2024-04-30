@@ -19,3 +19,15 @@ spec:
         image: moatazxz/hello-world-mvn:lts
         ports:
         - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mavn-loadbalancer-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: mavn
+  ports:
+    - port: 80
+      targetPort: 8080

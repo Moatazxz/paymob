@@ -5,20 +5,13 @@
   gather_facts: no
   vars:
     kubeconfig_path: ~/kube_config
-    ansible_python_interpreter: /usr/bin/python2
+    ansible_python_interpreter: /usr/bin/python3.7
 
   tasks:
     - name: Apply Deployment YAML
       k8s:
         state: present
         src: deployment.yaml
+        namespace: default
 
-    - name: Apply NodePort Service YAML
-      k8s:
-        state: present
-        src: service-nodeport.yaml
-
-    - name: Apply LoadBalancer Service YAML
-      k8s:
-        state: present
-        src: service-loadbalancer.yaml
+ 
